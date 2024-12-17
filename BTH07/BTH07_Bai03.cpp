@@ -1,37 +1,6 @@
 #include<iostream>
 using namespace std;
 
-/*
-INPUT SECTION
-*/
-
-//Input: So nguyen n >= 0
-void nhapDuLieu(int& n) {
-	do {
-		cout << "Nhap n: "; cin >> n;
-		if (n < 0) cout << "n khong hop le! (n >= 0)\n";
-	} while (n < 0);
-}
-
-//Input: So nguyen n >= 0, k >= 0
-void nhapDuLieu(int& n, int& k) {
-	do {
-		cout << "Nhap n: "; cin >> n;
-		if (n < 0) cout << "n khong hop le! (n >= 0)\n";
-	} while (n < 0);
-	do {
-		cout << "Nhap k: "; cin >> k;
-		if (k < 0) cout << "k khong hop le! (k >= 0)\n";
-	} while (k < 0);
-}
-
-
-/*
-OUTPUT SECTION
-*/
-
-
-//Output: Giai thua n!
 int tinhGiaiThua(int n) {
 	int giaiThua = 1;
 	for (int i = 1; i <= n; i++) {
@@ -40,86 +9,68 @@ int tinhGiaiThua(int n) {
 	return giaiThua;
 }
 
-//Output: Tinh to hop n chap k
-int tinhToHop(int n, int k, int& toHop) {
-	if (n >= k) {
-		toHop = tinhGiaiThua(n) / (tinhGiaiThua(k) * tinhGiaiThua(n - k));
-	}
-	else {
-		return 0;
-	}
+int tinhToHop(int n, int k) {
+	return tinhGiaiThua(n) / (tinhGiaiThua(k) * tinhGiaiThua(n - k));
 }
 
-//Output: In ra tam giac Pascal
-/* Vi du:
-1
-1 1
-1 2 1
-1 3 3 1
-1 4 6 4 1
-*/
-void inTamGiacPascal(int n) {
-	int coef = 1;
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j <= i; j++) {
-			if (j == 0 || i == 0) {
-				coef = 1;
-			}
-			else {
-				coef = coef * (i - j + 1) / j;
-			}
-			cout << coef << " ";
+void inTamGiacPascal(int h) {
+	for (int n = 0; n < h; n++) {
+		for (int k = 0; k <= n; k++) {
+			cout << tinhToHop(n, k) << " ";
 		}
 		cout << endl;
 	}
 }
 
 int main() {
-	//Khai bao bien
-	int n, k;
-	int toHop;
+	int chon;
+	int n, k, h;
 
-	/*
-	Test Case A
-	*/
+	do {
+		cout << "=====MAY TINH=====\n";
+		cout << "1. Tinh giai thua\n";
+		cout << "2. Tinh to hop\n";
+		cout << "3. In tam giac Pascal\n";
+		cout << "0. Ket thuc chuong trinh\n";
+		cout << "==================\n";
+		cout << "Nhap lua chon: "; cin >> chon;
+		system("cls");
 
-	//Input
-	nhapDuLieu(n);
+		switch (chon) {
+		case 1:
+		{
+			cout << "Tinh giai thua\n";
+			cout << "Nhap n: "; cin >> n;
+			int giaiThua = tinhGiaiThua(n);
+			cout << n << "! = " << giaiThua << endl;
 
-	//Processing
-	int giaiThua = tinhGiaiThua(n);
+			break;
+		}
+		case 2:
+		{
+			cout << "Tinh to hop\n";
+			cout << "Nhap n: "; cin >> n;
+			cout << "Nhap k: "; cin >> k;
+			int toHop = tinhToHop(n, k);
+			cout << "C(" << n << ", " << k << ") = " << toHop << endl;
 
-	//Output
-	cout << n << "! = " << giaiThua << endl;
+			break;
+		}
+		case 3:
+			cout << "In tam giac Pascal\n";
+			cout << "Nhap chieu cao tam giac: "; cin >> h;
+			inTamGiacPascal(h);
+			cout << endl;
 
+			break;
+		case 0:
+			cout << "Thoat\n";
+			break;
+		default:
+			cout << "Tinh nang khong hop le!\n";
+		}
+	} while (chon != 0);
 
-	/*
-	Test Case B
-	*/
-
-	//Input
-	nhapDuLieu(n, k);
-
-	//Processing
-	toHop = tinhToHop(n, k, toHop);
-
-	//Output
-	if (toHop != 0) {
-		cout << "C(" << n << "; " << k << ") = " << toHop << endl;
-	}
-	else {
-		cout << "Loi toan! (Dieu kien: n >= k)\n";
-	}
-
-	/*
-	Test Case C
-	*/
-
-	//Input
-	nhapDuLieu(n);
-
-	//Processing & Output
-	inTamGiacPascal(n);
-
+	system("pause");
 	return 1;
 }
