@@ -5,13 +5,22 @@ using namespace std;
 
 const int MAX = 100;
 
+//Kiem tra nhap danh sach SV
+bool hopLe1 = false;
+//Kiem tra nhap diem GK
+bool hopLe2 = false;
+//Kiem tra nhap diem CK
+bool hopLe3 = false;
+//Kiem tra tinh diem TK
+bool hopLe4 = false;
+
 void nhapDsSv(long mssv[], string hoTen[], int& siSo) {
 	do {
 		cout << "Nhap si so: "; cin >> siSo;
 		if (siSo < 1 || siSo > MAX)
 			cout << "Si so khong hop le!\n";
 	} while (siSo < 1 || siSo > MAX);
-	
+
 	for (int i = 0; i < siSo; i++) {
 		cout << "> Nhap thong tin SV thu " << i + 1 << ":\n";
 		cout << "  - MSSV: "; cin >> mssv[i];
@@ -106,15 +115,6 @@ int main() {
 
 	int chon;
 
-	//Kiem tra nhap danh sach SV
-	bool hopLe1 = false;
-	//Kiem tra nhap diem GK
-	bool hopLe2 = false;
-	//Kiem tra nhap diem CK
-	bool hopLe3 = false;
-	//Kiem tra tinh diem TK
-	bool hopLe4 = false;
-
 	do {
 		cout << "==============================\n";
 		cout << "CHUONG TRINH QUAN LY SINH VIEN\n";
@@ -183,9 +183,9 @@ int main() {
 			if (hopLe2 && hopLe3) {
 				for (int i = 0; i < siSo; i++) {
 					xuat1Sv(mssv[i], hoTen[i], i);
-					cout << "  - Diem tong ket: " << (diemTK[i] = tinhDiemTK(diemGK[i], diemCK[i])) << endl;
-					cout << "  - Ty le diem GK: " << tinhTyLeDiem(diemGK[i], 0.04) << endl;
-					cout << "  - Ty le diem CK: " << tinhTyLeDiem(diemCK[i], 0.06) << endl;
+					cout << "  - Diem tong ket: " << (diemTK[i] = tinhDiemTK(diemGK[i], diemCK[i])) << " / 10" << endl;
+					cout << "  - Ty le diem GK: " << tinhTyLeDiem(diemGK[i], 0.04) * 100 << " / 40%" << endl;
+					cout << "  - Ty le diem CK: " << tinhTyLeDiem(diemCK[i], 0.06) * 100 << " / 60%" << endl;
 					cout << endl;
 				}
 				hopLe4 = true;
@@ -233,5 +233,7 @@ int main() {
 			cout << "Tinh nang khong hop le!\n";
 		}
 	} while (chon != 0);
+
+	system("pause");
 	return 1;
 }
